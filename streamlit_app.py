@@ -5,7 +5,6 @@ import google.generativeai as genai
 ACCESS_PASSWORD = "lucalles_production_2026"
 
 # --- SYSTEM PROMPT (JENNIE v1.0 - LUXURY EDITION) ---
-# Core logic remains UNTOUCHED.
 JENNIE_SYSTEM_PROMPT = """
 {
   "system_identity": {
@@ -85,59 +84,66 @@ JENNIE_SYSTEM_PROMPT = """
 }
 """
 
-# --- UI SETUP (BLACK & GOLD LUXURY THEME) ---
-st.set_page_config(page_title="JENNIE v1.0", page_icon="🥟", layout="wide")
+# --- UI SETUP (BLACK & DARK GOLD LUXURY THEME) ---
+# initial_sidebar_state="expanded" ensures the sidebar is visible by default.
+# The arrow to hide it is a native Streamlit feature in 'wide' mode.
+st.set_page_config(page_title="JENNIE v1.0", page_icon="🥟", layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
 <style>
-    /* JENNIE BLACK & GOLD LUXURY THEME */
+    /* JENNIE BLACK & DARK GOLD LUXURY THEME */
     
     /* Main Background - Deepest Black */
     .stApp { background-color: #000000; }
     
-    /* Sidebar - Matte Black */
-    [data-testid="stSidebar"] { background-color: #0a0a0a; border-right: 1px solid #D4AF37; }
+    /* Sidebar - Matte Black with Dark Gold Border */
+    [data-testid="stSidebar"] { 
+        background-color: #0a0a0a; 
+        border-right: 1px solid #B8860B; /* Dark Goldenrod */
+    }
     
     /* Typography - Serif Fonts for Luxury Feel */
     h1 { 
-        color: #D4AF37 !important; 
+        color: #C5A059 !important; /* Darker Gold Text */
         font-family: 'Georgia', 'Playfair Display', serif; 
         font-weight: 400; 
-        letter-spacing: 2px;
+        letter-spacing: 3px;
         text-transform: uppercase;
-        border-bottom: 1px solid #D4AF37; 
+        border-bottom: 1px solid #B8860B; /* Dark Gold Border Line */
         padding-bottom: 20px; 
     }
     
+    /* Subtitle Styles */
     h3, h4 {
         color: #F5F5F5 !important;
         font-family: 'Helvetica Neue', sans-serif;
         font-weight: 300;
         letter-spacing: 1px;
+        text-transform: uppercase; /* Matching the caps look */
     }
     
     p, label, .stMarkdown { color: #cfcfcf !important; }
     
-    /* Input Fields - Dark Grey with Gold Border on Focus */
+    /* Input Fields - Dark Grey with Dark Gold Border on Focus */
     .stTextArea textarea, .stTextInput input { 
         background-color: #111111 !important; 
-        color: #D4AF37 !important; 
+        color: #C5A059 !important; 
         border: 1px solid #333333; 
-        border-radius: 0px; /* Sharp corners for professional look */
+        border-radius: 0px; 
     }
     
     .stTextArea textarea:focus, .stTextInput input:focus { 
-        border-color: #D4AF37; 
-        box-shadow: 0 0 5px rgba(212, 175, 55, 0.5); 
+        border-color: #B8860B; /* Dark Gold */
+        box-shadow: 0 0 5px rgba(184, 134, 11, 0.4); 
     }
     
-    /* Buttons - Gold with Black Text */
+    /* Buttons - Dark Gold Gradient Effect (Simulated via flat color) */
     .stButton>button { 
-        background-color: #D4AF37; 
+        background-color: #B8860B; /* Dark Goldenrod */
         color: #000000; 
         border-radius: 0px; 
         font-weight: 600; 
-        border: 1px solid #D4AF37; 
+        border: 1px solid #8B6508; 
         padding: 12px 30px; 
         text-transform: uppercase; 
         letter-spacing: 1.5px;
@@ -145,14 +151,14 @@ st.markdown("""
     }
     
     .stButton>button:hover { 
-        background-color: #000000; 
-        color: #D4AF37; 
-        border: 1px solid #D4AF37;
+        background-color: #C5A059; /* Lighter Gold on Hover */
+        color: #000000; 
+        border: 1px solid #C5A059;
     }
     
     /* Alerts and Code Blocks */
-    .stAlert { background-color: #111111; color: #D4AF37; border: 1px solid #D4AF37; }
-    code { color: #D4AF37; background-color: #1a1a1a; border-left: 2px solid #D4AF37; }
+    .stAlert { background-color: #111111; color: #C5A059; border: 1px solid #B8860B; }
+    code { color: #C5A059; background-color: #1a1a1a; border-left: 2px solid #B8860B; }
     
 </style>
 """, unsafe_allow_html=True)
@@ -166,20 +172,22 @@ except:
 
 # --- MAIN APP LAYOUT ---
 st.title("J E N N I E")
-st.markdown("### VIP Visual Consultant | Luxury Edition")
+# --- UPDATED SUBTITLE ---
+st.markdown("### VISUAL PROMPTER/ DESIGN TO CREATE")
 st.write("") 
 
-password_input = st.sidebar.text_input("🔒 VIP Access", type="password", placeholder="Password required...", help="Ask Oppa for access.")
+password_input = st.sidebar.text_input("🔒 Access Portal", type="password", placeholder="Password required...", help="Ask Oppa for access.")
 
 if password_input == ACCESS_PASSWORD:
-    st.sidebar.success("✅ IDENTITY CONFIRMED")
-    st.sidebar.markdown("---")
+    # --- SIDEBAR STATUS (Matches image_74dda2.png) ---
+    st.sidebar.success("SYSTEM ONLINE")
     
     if API_STATUS:
-        st.sidebar.success("✅ Gold Status Active")
-        st.sidebar.info("Welcome back, Oppa.")
+        st.sidebar.success("License Key Active")
+        st.sidebar.info("Authorized for: Lucalles Productions")
     else:
         st.sidebar.error("❌ Key Missing")
+    # -------------------------------
     
     st.markdown("#### 🥟 Script Input")
     user_script = st.text_area("Input Stream", height=300, placeholder="Paste the script here, Oppa. I'll handle the rest...", label_visibility="collapsed")
@@ -188,10 +196,10 @@ if password_input == ACCESS_PASSWORD:
     
     if st.button("INITIATE JENNIE"):
         if user_script:
-            # --- THE FIX: Using 'gemini-flash-latest' for speed, Pro for backup ---
+            # --- MODEL SELECTION ---
             target_model = "gemini-flash-latest"
             
-            # --- UPDATE: Removed technical model name from loading spinner ---
+            # --- SPINNER ---
             with st.spinner("Jennie is visualizing...."):
                 try:
                     model = genai.GenerativeModel(target_model)
@@ -205,7 +213,7 @@ if password_input == ACCESS_PASSWORD:
                     st.markdown(response.text)
                     
                 except Exception as e:
-                    # Auto-Fallback to Old Reliable if Flash fails
+                    # Auto-Fallback
                     try:
                         st.warning("⚠️ High traffic. Switching to VIP backup channel...")
                         model = genai.GenerativeModel("gemini-pro")

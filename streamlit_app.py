@@ -4,7 +4,7 @@ import google.generativeai as genai
 # --- CONFIGURATION ---
 ACCESS_PASSWORD = "lucalles_production_2026"
 
-# --- SYSTEM PROMPT (JENNIE v1.0 - LUXURY EDITION) ---
+# --- SYSTEM PROMPT (UNTOUCHED) ---
 JENNIE_SYSTEM_PROMPT = """
 {
   "system_identity": {
@@ -84,47 +84,68 @@ JENNIE_SYSTEM_PROMPT = """
 }
 """
 
-# --- UI SETUP (BLACK & DARK GOLD LUXURY THEME) ---
-# initial_sidebar_state="expanded" ensures the sidebar is visible by default.
-# The arrow to hide it is a native Streamlit feature in 'wide' mode.
+# --- UI SETUP (HEAVY GOLD LUXURY THEME) ---
 st.set_page_config(page_title="JENNIE v1.0", page_icon="🥟", layout="wide", initial_sidebar_state="expanded")
+
+# Import Luxury Cursive Font
+st.markdown('<link href="[https://fonts.googleapis.com/css2?family=Parisienne&display=swap](https://fonts.googleapis.com/css2?family=Parisienne&display=swap)" rel="stylesheet">', unsafe_allow_html=True)
 
 st.markdown("""
 <style>
-    /* JENNIE BLACK & DARK GOLD LUXURY THEME */
+    /* JENNIE HEAVY GOLD LUXURY THEME */
     
+    /* --- The Top Bar (Red Circle Area) --- */
+    /* Targeting the Streamlit header container directly */
+    header[data-testid="stHeader"] {
+        background: linear-gradient(to bottom, #9A7B4F, #B8860B); /* Rich dark gold gradient */
+        border-bottom: 2px solid #6A4503; /* Darker shadow border */
+    }
+    /* Ensure the hamburger menu and buttons remain visible on the gold background */
+    header[data-testid="stHeader"] * {
+        color: #000000 !important;
+    }
+
     /* Main Background - Deepest Black */
     .stApp { background-color: #000000; }
     
     /* Sidebar - Matte Black with Dark Gold Border */
     [data-testid="stSidebar"] { 
         background-color: #0a0a0a; 
-        border-right: 1px solid #B8860B; /* Dark Goldenrod */
+        border-right: 2px solid #B8860B;
     }
     
-    /* Typography - Serif Fonts for Luxury Feel */
+    /* --- 3D Luxury Cursive Title --- */
     h1 { 
-        color: #C5A059 !important; /* Darker Gold Text */
-        font-family: 'Georgia', 'Playfair Display', serif; 
-        font-weight: 400; 
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        border-bottom: 1px solid #B8860B; /* Dark Gold Border Line */
-        padding-bottom: 20px; 
+        font-family: 'Parisienne', cursive !important;
+        font-size: 5em !important; /* Much larger for cursive readability */
+        font-weight: 400;
+        margin-top: -20px;
+        padding-bottom: 10px;
+        
+        /* The Metallic Text Texture (Gradient Fill) */
+        background: linear-gradient(135deg, #E6C278 0%, #C5A059 25%, #B8860B 50%, #E6C278 75%, #8B6508 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        
+        /* The 3D Shadow Effect (using filters for depth) */
+        filter: drop-shadow(2px 2px 1px #000000) drop-shadow(0px 0px 3px #8B6508);
+        
+        border-bottom: 1px solid #B8860B; 
     }
     
-    /* Subtitle Styles */
+    /* Subtitle Styles (Clean Contrast) */
     h3, h4 {
-        color: #F5F5F5 !important;
+        color: #C5A059 !important; /* Gold color for subtitle */
         font-family: 'Helvetica Neue', sans-serif;
-        font-weight: 300;
-        letter-spacing: 1px;
-        text-transform: uppercase; /* Matching the caps look */
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 10px;
     }
     
     p, label, .stMarkdown { color: #cfcfcf !important; }
     
-    /* Input Fields - Dark Grey with Dark Gold Border on Focus */
+    /* Input Fields */
     .stTextArea textarea, .stTextInput input { 
         background-color: #111111 !important; 
         color: #C5A059 !important; 
@@ -133,26 +154,27 @@ st.markdown("""
     }
     
     .stTextArea textarea:focus, .stTextInput input:focus { 
-        border-color: #B8860B; /* Dark Gold */
-        box-shadow: 0 0 5px rgba(184, 134, 11, 0.4); 
+        border-color: #B8860B; 
+        box-shadow: 0 0 8px rgba(184, 134, 11, 0.5); 
     }
     
-    /* Buttons - Dark Gold Gradient Effect (Simulated via flat color) */
+    /* Buttons - 3D Metallic Gold */
     .stButton>button { 
-        background-color: #B8860B; /* Dark Goldenrod */
+        background: linear-gradient(to bottom, #C5A059, #B8860B);
         color: #000000; 
         border-radius: 0px; 
-        font-weight: 600; 
+        font-weight: 700; 
         border: 1px solid #8B6508; 
         padding: 12px 30px; 
         text-transform: uppercase; 
         letter-spacing: 1.5px;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 2px rgba(0,0,0,0.5);
         transition: all 0.3s ease;
     }
     
     .stButton>button:hover { 
-        background-color: #C5A059; /* Lighter Gold on Hover */
-        color: #000000; 
+        background: linear-gradient(to bottom, #E6C278, #C5A059);
+        color: #000000;
         border: 1px solid #C5A059;
     }
     
@@ -171,15 +193,15 @@ except:
     API_STATUS = False
 
 # --- MAIN APP LAYOUT ---
-st.title("J E N N I E")
-# --- UPDATED SUBTITLE ---
+st.title("Jennie") # Title case works better for cursive fonts
+# --- SUBTITLE ---
 st.markdown("### VISUAL PROMPTER/ DESIGN TO CREATE")
 st.write("") 
 
 password_input = st.sidebar.text_input("🔒 Access Portal", type="password", placeholder="Password required...", help="Ask Oppa for access.")
 
 if password_input == ACCESS_PASSWORD:
-    # --- SIDEBAR STATUS (Matches image_74dda2.png) ---
+    # --- SIDEBAR STATUS ---
     st.sidebar.success("SYSTEM ONLINE")
     
     if API_STATUS:
@@ -196,10 +218,8 @@ if password_input == ACCESS_PASSWORD:
     
     if st.button("INITIATE JENNIE"):
         if user_script:
-            # --- MODEL SELECTION ---
             target_model = "gemini-flash-latest"
             
-            # --- SPINNER ---
             with st.spinner("Jennie is visualizing...."):
                 try:
                     model = genai.GenerativeModel(target_model)

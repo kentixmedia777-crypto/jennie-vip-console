@@ -93,91 +93,43 @@ st.markdown('<link href="[https://fonts.googleapis.com/css2?family=Parisienne&di
 
 st.markdown("""
 <style>
-    /* JENNIE HEAVY GOLD LUXURY THEME */
+    /* JENNIE GOLD GLITTER GRADIENT THEME */
+    .stApp { background-color: #050505; }
     
-    /* --- The Top Bar --- */
     header[data-testid="stHeader"] {
-        background: linear-gradient(to bottom, #9A7B4F, #B8860B) !important; 
-        border-bottom: 2px solid #6A4503 !important; 
-    }
-    header[data-testid="stHeader"] * {
-        color: #000000 !important;
+        background: linear-gradient(135deg, #DAA520, #FFD700, #B8860B) !important;
     }
 
-    /* Main Background - Deepest Black */
-    .stApp { background-color: #000000; }
-    
-    /* Sidebar */
     [data-testid="stSidebar"] { 
-        background-color: #0a0a0a; 
-        border-right: 2px solid #B8860B;
+        background-color: #121212; 
+        border-right: 1px solid #FFD700;
     }
     
-    /* --- 3D Luxury Cursive Title --- */
     h1 { 
-        font-family: 'Parisienne', 'Brush Script MT', 'Segoe Script', 'Gabriola', cursive !important;
-        font-size: 5em !important; 
-        font-weight: 400;
-        margin-top: -20px;
-        padding-bottom: 10px;
-        
-        background: linear-gradient(135deg, #E6C278 0%, #C5A059 25%, #B8860B 50%, #E6C278 75%, #8B6508 100%);
+        font-family: 'Parisienne', cursive !important;
+        background: linear-gradient(to right, #FFD700, #DAA520);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        
-        filter: drop-shadow(2px 2px 1px #000000) drop-shadow(0px 0px 3px #8B6508);
-        border-bottom: 1px solid #B8860B; 
+        filter: drop-shadow(0 0 5px rgba(218, 165, 32, 0.5));
     }
-    
-    /* Subtitle Styles */
-    h3, h4 {
-        color: #C5A059 !important; 
-        font-family: 'Helvetica Neue', sans-serif;
-        font-weight: 500;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-top: 10px;
-    }
-    
-    p, label, .stMarkdown { color: #cfcfcf !important; }
-    
-    /* Input Fields */
-    .stTextArea textarea, .stTextInput input { 
-        background-color: #111111 !important; 
-        color: #C5A059 !important; 
-        border: 1px solid #333333; 
-        border-radius: 0px; 
-    }
-    
-    .stTextArea textarea:focus, .stTextInput input:focus { 
-        border-color: #B8860B; 
-        box-shadow: 0 0 8px rgba(184, 134, 11, 0.5); 
-    }
-    
-    /* Buttons - 3D Metallic Gold */
+
+    /* Action Button - Gold Glitter Gradient */
     .stButton>button { 
-        background: linear-gradient(to bottom, #C5A059, #B8860B);
-        color: #000000; 
-        border-radius: 0px; 
-        font-weight: 700; 
-        border: 1px solid #8B6508; 
-        padding: 12px 30px; 
-        text-transform: uppercase; 
-        letter-spacing: 1.5px;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 2px rgba(0,0,0,0.5);
-        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #FFD700 0%, #B8860B 50%, #FFD700 100%);
+        color: #000;
+        font-weight: 800;
+        border: none;
+        border-radius: 4px;
+        transition: 0.3s;
     }
-    
-    .stButton>button:hover { 
-        background: linear-gradient(to bottom, #E6C278, #C5A059);
-        color: #000000;
-        border: 1px solid #C5A059;
+    .stButton>button:hover { filter: brightness(1.2); }
+
+    /* Input Fields */
+    .stTextArea textarea { 
+        background-color: #1a1a1a !important; 
+        color: #DAA520 !important; 
+        border: 1px solid #333; 
     }
-    
-    /* Alerts and Code Blocks */
-    .stAlert { background-color: #111111; color: #C5A059; border: 1px solid #B8860B; }
-    code { color: #C5A059; background-color: #1a1a1a; border-left: 2px solid #B8860B; }
-    
 </style>
 """, unsafe_allow_html=True)
 

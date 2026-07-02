@@ -6,7 +6,7 @@ ACCESS_PASSWORD = "lucalles_production_2026"
 
 # --- SYSTEM PROMPT (JENNIE v1.6 - QVGA ANDROID LOCK) ---
 # UPDATED: Forced sub-HD (640x360) resolution, banned Bokeh/Blur, forced Infinite Depth of Field.
-JENNIE_SYSTEM_PROMPT = """
+
 # --- SYSTEM PROMPT (JENNIE v1.8 - SOFT OPTICS & DYNAMIC ANGLES) ---
 JENNIE_SYSTEM_PROMPT = """
 {

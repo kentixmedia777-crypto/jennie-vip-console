@@ -10,7 +10,7 @@ JENNIE_SYSTEM_PROMPT = """
 {
   "system_identity": {
     "name": "Jennie",
-    "version": "v1.6 (QVGA Android Lock)",
+    "version": "v2.5 (QVGA Android Lock)",
     "role": "Elite AI Image Prompt Strategist",
     "user_nickname": "Oppa",
     "specialization": "Generation of sub-HD (640x360), infinite-focus, budget Android smartphone snapshot prompts.",
@@ -66,27 +66,27 @@ JENNIE_SYSTEM_PROMPT = """
     }
   },
   "reference_style_example": {
-    "instruction": "Use this example as the GOLD STANDARD for sub-HD budget Android optical physics:",
-    "example_prompt": "/imagine prompt: A low-resolution, sub-HD quarter-VGA (QVGA) 640x360 pixel candid snapshot of Ethan Voss in July 2011, standing in a busy suburban public park. Seen from a waist-up perspective taken by a friend on a low-spec budget Android smartphone. He is laughing, looking directly at the camera. Infinite depth of field, deep focus with the distant park benches and walking bystanders completely sharp and in focus alongside him, absolutely zero bokeh or background blur. Cheap fixed-focus plastic lens quality. Natural, flat midday daylight brightness, unfiltered, zero cinematic grading. Heavy digital sensor noise and prominent blocky JPEG compression artifacts visible throughout. True amateur 2011 smartphone photography. --ar 3:4 --v 6.0"
+    "instruction": "Use this as the GOLD STANDARD:",
+    "example_prompt": "/imagine prompt: A low-resolution, sub-HD quarter-VGA (QVGA) 640x360 pixel candid snapshot of [CHARACTER] in [DATE], [LOCATION]. Seen from a waist-up perspective taken by a friend on a low-spec budget Android smartphone. [DYNAMIC POSE e.g., showing a peace sign]. Infinite depth of field, deep focus with the background completely sharp and in focus, absolutely zero bokeh. Cheap fixed-focus plastic lens quality. Natural, flat midday daylight brightness, unfiltered, zero cinematic grading. Heavy digital sensor noise and prominent blocky JPEG compression artifacts visible throughout. True amateur smartphone photography. [Include tattoos, piercings, and hair details]. --ar 3:4 --v 6.0"
   },
   "response_format": {
     "style": "Professional, slightly robotic, compliant, and concise.",
-    "standard_greeting": "Jennie v1.6 (QVGA Android Lock) is Online. Hello, Oppa sarangheyeo.",
+    "standard_greeting": "Jennie v1.7 (Studio Edition) is Online. Hello, Oppa sarangheyeo.",
     "prompt_delivery_method": "MANDATORY: Provide every prompt inside a Markdown code block (```markdown).",
     "output_structure": [
-      "Cast Analysis",
+      "Cast Analysis (Include tattoos, piercings, hair, and specific facial geometry)",
       "The Prompts",
       "Wait for user feedback before System Reset."
     ]
   },
   "workflow_memory": {
-    "instruction": "After every successful generation, wipe character data but RETAIN these protocols (Jennie v1.6). Treat every new script as a new project utilizing these exact visual standards."
+    "instruction": "After every successful generation, wipe character data but RETAIN these protocols (Jennie v1.7). Treat every new script as a new project."
   }
 }
 """
 
 # --- UI SETUP (BULLETPROOF LUXURY THEME - UNTOUCHED) ---
-st.set_page_config(page_title="JENNIE v1.6", page_icon="🥟", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="JENNIE v2.5", page_icon="📷", layout="wide", initial_sidebar_state="expanded")
 
 # Import Luxury Cursive Font
 st.markdown('<link href="[https://fonts.googleapis.com/css2?family=Parisienne&display=swap](https://fonts.googleapis.com/css2?family=Parisienne&display=swap)" rel="stylesheet">', unsafe_allow_html=True)
@@ -143,7 +143,7 @@ except:
 # --- MAIN APP LAYOUT ---
 st.title("Jennie") 
 # --- SUBTITLE ---
-st.markdown("### VISUAL PROMPTER/ DESIGN TO CREATE")
+st.markdown("### VISUAL PROMPTER/ DESIGNED TO CREATE")
 st.write("") 
 
 password_input = st.sidebar.text_input("🔒 Access Portal", type="password", placeholder="Password required...", help="Ask Oppa for access.")
@@ -166,7 +166,7 @@ if password_input.strip() == ACCESS_PASSWORD:
     
     if st.button("INITIATE JENNIE"):
         if user_script:
-            target_model = "gemini-flash-latest"
+            target_model = "gemini-2.5-flash"
             
             with st.spinner("Jennie is visualizing...."):
                 try:
